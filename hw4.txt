@@ -1,0 +1,112 @@
+1. Написать функцию, преобразующую число в объект. 
+Передавая на вход число от 0 до 999, мы должны получить на выходе объект, в котором в соответствующих свойствах описаны единицы, десятки и сотни. 
+Например, для числа 245 мы должны получить следующий объект: {‘единицы’: 5, ‘десятки’: 4, ‘сотни’: 2}. 
+Если число превышает 999, необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
+
+answer:
+	var obj = {};
+
+        var num = +prompt('Please enter your number');
+
+        function numToObj(num) {
+            if (num < 0 || num > 999) {
+                console.log('Number must be in range from 0 to 999');
+                return obj;
+            }
+            obj.ones = num % 10;
+            num = num / 10 | 0;
+            obj.dimes = num % 10;
+            num = num / 10 | 0;
+            obj.hundreds = num;
+            return obj;
+        }
+        console.log(numToObj(num));
+	
+
+2. Для игры, реализованной на уроке, добавить возможность вывода хода номер n (номер задается пользователем)
+
+answer:
+
+var event, ok;
+var answers = [];
+main('a');
+switch (event) {
+    case 1: 
+        main('b');
+        switch (event) {
+            case 1: 
+                main('d');
+                break;
+            case 2:
+                main('d');
+                break;
+            case -1:
+                break;
+            default:
+                alert('Ошибка');
+        }
+        break;
+    case 2:
+        main('c');
+        switch (event) {
+            case 1:
+                main('d');
+                break;
+            case 2:
+                main('d');               
+                break;
+            case -1:
+                break;
+            default:
+                alert('Ошибка');
+        }
+        break;
+    case -1:
+        break;
+    default:
+        alert('Ошибка');
+}
+alert('Спасибо за игру');
+memoryCheck();
+
+function memoryCheck() {
+    do {
+        ok = false;
+        event = +prompt("Введите номер хода (от 1 до " + answers.length +") или -1 - Выход");
+        if (event == -1) {
+            break;
+        } else {
+            ok = isAnswer(answers.length, event);
+        }
+    } 
+    while (!ok);
+    alert(answers[event - 1]);
+}
+
+function isAnswer(q, event) {
+    if (isNaN(event) || !isFinite(event)) {
+        alert('Вы ввели недопустимый символ');
+        return false;
+    }
+    else if (event < 1 || event > q) {
+        alert('Ваше число выходит из допустимого диапозона');
+        return false;
+    }
+	return true;
+    
+}
+
+function main(i) {
+    do {
+        ok = false;
+        event = +prompt(works[i+'00'] + works[i+'1'] + works[i+'2'] + '-1 - Выход из игры');
+        answers.push('На вопрос: ' + works[i+'00'] + 'вы ответили ' + works[i+event]);
+        if (event == -1) {
+            break;
+        } else {
+            ok = isAnswer(works[i+'0'], event);
+        }
+    } while (!ok);
+}
+
+
