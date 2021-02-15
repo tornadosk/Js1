@@ -1,0 +1,90 @@
+1. Создать функцию, генерирующую шахматную доску. При этом можно использовать любые html-теги по своему желанию. Доска должна быть разлинована соответствующим образом, т.е. чередовать черные и белые ячейки. Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F, G, H.
+2. Заполнить созданную таблицу буквами, отвечающими за шахматную фигуру, например К – король, Ф – ферзь и т.п., причем все фигуры должны стоять на своих местах и быть соответственно черными и белыми.
+3. *Заменить буквы, обозначающие фигуры картинками.
+
+answer: 
+
+<head>
+    <meta charset="UTF-8">
+    <title>document</title>
+    <style>
+        table {
+            font-family: sans-serif;
+            font-size: 30px;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+
+        td {
+            height: 40px;
+            width: 40px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) td:nth-child(odd),
+        tr:nth-child(odd) td:nth-child(even) {
+            background-color: grey;
+        }
+
+        tr:last-child td:nth-child(odd),
+        tr:first-child td:nth-child(even) {
+            background-color: white;
+        }
+
+        tr:nth-child(even) td:first-child {
+            background-color: white;
+        }
+
+        tr:nth-child(odd) td:last-child {
+            background-color: white;
+        }
+
+        .flip {
+            transform: rotate(-180deg);
+        }
+    </style>
+
+</head>
+
+<body>
+    <script>
+        function chess() {
+            var table = document.createElement('table'),
+                base = [
+                    ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', ''],
+                    ['8', '&#9820;', '&#9822;', '&#9821;', '&#9819;', '&#9818;', '&#9821;', '&#9822;', '&#9820;',
+                        '8'
+                    ],
+                    ['7', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;',
+                        '7'
+                    ],
+                    ['6', '', '', '', '', '', '', '', '', '6'],
+                    ['5', '', '', '', '', '', '', '', '', '5'],
+                    ['4', '', '', '', '', '', '', '', '', '4'],
+                    ['3', '', '', '', '', '', '', '', '', '3'],
+                    ['2', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;',
+                        '2'
+                    ],
+                    ['1', '&#9814;', '&#9816;', '&#9815;', '&#9813;', '&#9812;', '&#9815;', '&#9816;', '&#9814;',
+                        '1'
+                    ],
+                    ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '']
+                ];
+
+            for (var i = 0; i < 10; i++) {
+                var tr = table.insertRow(i);
+                for (var j = 0; j < 10; j++) {
+                    var td = tr.insertCell(j);
+                    td.innerHTML = base[i][j];
+                    if (i == 0 || j == 9) {
+                        td.classList.add("flip");
+                    }
+                }
+            }
+            document.body.appendChild(table);
+        }
+        chess();
+    </script>
+</body>
